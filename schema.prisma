@@ -1,0 +1,30 @@
+// file: prisma/schema.prisma
+
+// 1. Chỉ định tool để tạo ra Prisma Client cho NestJS
+generator client {
+  provider = "prisma-client-js"
+}
+
+// 2. Chỉ định loại Database và đường dẫn kết nối
+datasource db {
+  provider = "postgresql" // Nếu bạn dùng MySQL thì đổi thành "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// 3. Model Room của chúng ta
+model Room {
+  id              Int      @id @default(autoincrement())
+  name            String
+  price           Float
+  description     String?
+  status          String   @default("Trống")
+  prevElectricity Int      @default(0)
+  currElectricity Int      @default(0)
+  serviceFee      Float    @default(0)
+  tenantName      String?  @default("Chưa có khách")
+  occupants       Int      @default(0)
+  isPaid          Boolean  @default(false)
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
