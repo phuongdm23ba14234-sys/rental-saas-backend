@@ -7,8 +7,14 @@ export class RoomsService {
   constructor(private prisma: PrismaService) {}
 
   create(createRoomDto: any) {
+    const data = this.normalizeRoomData(
+      createRoomDto,
+    ) as Prisma.RoomUncheckedCreateInput;
+    data.name = String(createRoomDto.name || '');
+    data.price = Number(createRoomDto.price || 0);
+
     return this.prisma.room.create({
-      data: this.normalizeRoomData(createRoomDto),
+      data,
     });
   }
 
@@ -32,11 +38,8 @@ export class RoomsService {
     });
   }
 
-  private normalizeRoomData(input: any): Prisma.RoomUncheckedCreateInput {
-    const data: Prisma.RoomUncheckedCreateInput = {
-      name: String(input.name || ''),
-      price: Number(input.price || 0),
-    };
+  private normalizeRoomData(input: any): Prisma.RoomUncheckedUpdateInput {
+    const data: Prisma.RoomUncheckedUpdateInput = {};
 
     if (input.name !== undefined) data.name = String(input.name);
     if (input.description !== undefined) data.description = input.description || null;
