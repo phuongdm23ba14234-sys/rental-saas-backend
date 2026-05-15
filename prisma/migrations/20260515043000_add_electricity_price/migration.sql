@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Room" ADD COLUMN "electricityPrice" DOUBLE PRECISION NOT NULL DEFAULT 3500;
