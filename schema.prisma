@@ -20,6 +20,7 @@ model Room {
   status          String   @default("Trống")
   prevElectricity Int      @default(0)
   currElectricity Int      @default(0)
+  electricityPrice Float   @default(3500)
   serviceFee      Float    @default(0)
   tenantName      String?  @default("Chưa có khách")
   occupants       Int      @default(0)
